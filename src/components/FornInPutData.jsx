@@ -148,7 +148,7 @@ const FornInPutData = () => {
                         <label htmlFor="">Price</label><input onChange={(e) => handleChange(e)} type='text' name='price' placeholder='Price' /><br />
                     </div>
                     <div className="btn-grid">
-                        <button className='btn-addData' onClick={handleAddData}>เพิ่มข้อมูล</button>
+                        <button className='btn-addData' onClick={handleAddData}>Add Data</button>
                         <button className={`btn-add-cancle ${showAddBtn ? "show" : "hide"}`} onClick={handleHideInput}>Cancle</button>
                     </div>
                 </div>
