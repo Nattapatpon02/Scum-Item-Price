@@ -60,14 +60,14 @@ const FornInPutData = () => {
 
         })
     }
-
     const handleAddData = async () => {
-
-        await addDoc(dataRef, form).then((res) => {
-
-
-        }).catch(err => console.log(err))
-    }
+        await addDoc(dataRef, form)
+            .then((res) => {
+                // รีเฟรชเพจหลังจากเพิ่มข้อมูลสำเร็จ
+                window.location.reload();
+            })
+            .catch(err => console.log(err));
+    };
 
 
     const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' });
