@@ -142,7 +142,7 @@ const FornInPutData = () => {
                         <label htmlFor="">Name</label> <input onChange={(e) => handleChange(e)} type='text' name='name' placeholder='Name' /> <br />
                     </div>
                     <div className="input-grid">
-                        <label htmlFor="">Detail</label><input onChange={(e) => handleChange(e)} type='text' name='detail' placeholder='Detail' /><br />
+                        <label htmlFor="">Percent</label><input onChange={(e) => handleChange(e)} type='text' name='detail' placeholder='Percent' /><br />
                     </div>
                     <div className="input-grid">
                         <label htmlFor="">Price</label><input onChange={(e) => handleChange(e)} type='text' name='price' placeholder='Price' /><br />
@@ -160,7 +160,7 @@ const FornInPutData = () => {
                             <tr>
                                 <th className='tb-no' scope="col">No.</th>
                                 <th className='tb-name' onClick={() => sortData('name')}>Name</th>
-                                <th className='tb-detail' scope="col">Detail</th>
+                                <th className='tb-detail' scope="col">Percent</th>
                                 <th className='tb-price' scope="col">Price</th>
                                 <th className='tb-edit' scope="col">Edit</th>
 
