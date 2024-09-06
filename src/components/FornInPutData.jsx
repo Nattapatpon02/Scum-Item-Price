@@ -142,10 +142,10 @@ const FornInPutData = () => {
                         <label htmlFor="">Name</label> <input onChange={(e) => handleChange(e)} type='text' name='name' placeholder='Name' /> <br />
                     </div>
                     <div className="input-grid">
-                        <label htmlFor="">Percent</label><input onChange={(e) => handleChange(e)} type='text' name='detail' placeholder='Percent' /><br />
+                        <label htmlFor="">Percent</label><input onChange={(e) => handleChange(e)} type='number' name='detail' placeholder='Percent' /><br />
                     </div>
                     <div className="input-grid">
-                        <label htmlFor="">Price</label><input onChange={(e) => handleChange(e)} type='text' name='price' placeholder='Price' /><br />
+                        <label htmlFor="">Price</label><input onChange={(e) => handleChange(e)} type='number' name='price' placeholder='Price' /><br />
                     </div>
                     <div className="btn-grid">
                         <button className='btn-addData' onClick={handleAddData}>Add Data</button>
@@ -162,6 +162,7 @@ const FornInPutData = () => {
                                 <th className='tb-name' onClick={() => sortData('name')}>Name</th>
                                 <th className='tb-detail' scope="col">Percent</th>
                                 <th className='tb-price' scope="col">Price</th>
+                                <th className='tb-price' scope="col">100% Price</th>
                                 <th className='tb-edit' scope="col">Edit</th>
 
                             </tr>
@@ -190,11 +191,11 @@ const FornInPutData = () => {
                                     <td className='tb-detail'>{editId === item.id
                                         ? (<><input onChange={(e) => handleChange(e)}
                                             type='text'
-                                            name='detail'
+                                            name='percent'
                                             value={form.detail !== undefined ? form.detail : item.detail}
-                                            placeholder='Detail' /></>)
+                                            placeholder='Percent' /></>)
                                         : (
-                                            item.detail
+                                            <><div className="text-center">{item.detail} %</div></>
                                         )
 
                                     }</td>
@@ -206,10 +207,13 @@ const FornInPutData = () => {
                                             value={form.price !== undefined ? form.price : item.price}
                                             placeholder='price' /></>)
                                         : (
-                                            formatPrice(item.price)
+                                            <>{formatPrice(item.price)} </>
                                         )
 
                                     }</td>
+                                    <td className='tb-price'>
+                                        {formatPrice((100 / item.detail) * item.price)}
+                                    </td>
                                     <td className='tb-btn-grid tb-edit'>
                                         {
                                             editId === item.id
