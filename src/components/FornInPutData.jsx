@@ -124,6 +124,22 @@ const FornInPutData = () => {
         setform({})
     }
 
+    const [selectedItem, setSelectedItem] = useState(null);
+    const handleCardClick = (item) => {
+        setSelectedItem(item);  // เมื่อคลิกการ์ด เก็บข้อมูล item ใน state
+    };
+
+    const [searchTerm, setSearchTerm] = useState('');
+    // ฟังก์ชันในการจัดการการเปลี่ยนแปลงคำค้นหา
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+    // ฟังก์ชันสำหรับการกรองข้อมูลตามคำค้นหา
+    const filteredData = data.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+
 
     return (
         <div className="container">
@@ -154,6 +170,14 @@ const FornInPutData = () => {
                 </div>
 
                 <hr />
+                <div className="serch-box">
+                    <input
+                        type="text"
+                        placeholder='ค้นหา'
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
                 <div className="box-table">
                     <table className="table table-hover price-table">
                         <thead>
@@ -168,76 +192,128 @@ const FornInPutData = () => {
                             </tr>
                         </thead>
                         <tbody>
-
-
-                            {data.map((item, index) =>
+                            {filteredData.map((item, index) =>
                                 <tr key={index}>
                                     <th className='tb-no' scope="row">{index + 1}</th>
 
+                                    <td className='tb-name'>
+                                        {editId === item.id
+                                            ? (
+                                                <input
+                                                    onChange={handleChange}
+                                                    type='text'
+                                                    name='name'
+                                                    value={form.name !== undefined ? form.name : item.name}
+                                                    placeholder='Name'
+                                                />
+                                            )
+                                            : item.name
+                                        }
+                                    </td>
 
-                                    <td className='tb-name'>{editId === item.id
-                                        ? (<><input onChange={(e) => handleChange(e)}
-                                            type='text'
-                                            name='name'
-                                            value={form.name !== undefined ? form.name : item.name}
-                                            placeholder='Name' /></>)
-                                        : (
-                                            item.name
-                                        )
+                                    <td className='tb-detail'>
+                                        {editId === item.id
+                                            ? (
+                                                <input
+                                                    onChange={handleChange}
+                                                    type='text'
+                                                    name='percent'
+                                                    value={form.detail !== undefined ? form.detail : item.detail}
+                                                    placeholder='Percent'
+                                                />
+                                            )
+                                            : <div className="text-center">{item.detail} %</div>
+                                        }
+                                    </td>
 
-                                    }</td>
+                                    <td className='tb-price'>
+                                        {editId === item.id
+                                            ? (
+                                                <input
+                                                    onChange={handleChange}
+                                                    type='number'
+                                                    name='price'
+                                                    value={form.price !== undefined ? form.price : item.price}
+                                                    placeholder='Price'
+                                                />
+                                            )
+                                            : formatPrice(item.price)
+                                        }
+                                    </td>
 
-
-                                    <td className='tb-detail'>{editId === item.id
-                                        ? (<><input onChange={(e) => handleChange(e)}
-                                            type='text'
-                                            name='percent'
-                                            value={form.detail !== undefined ? form.detail : item.detail}
-                                            placeholder='Percent' /></>)
-                                        : (
-                                            <><div className="text-center">{item.detail} %</div></>
-                                        )
-
-                                    }</td>
-
-                                    <td className='tb-price'>{editId === item.id
-                                        ? (<><input onChange={(e) => handleChange(e)}
-                                            type='number'
-                                            name='price'
-                                            value={form.price !== undefined ? form.price : item.price}
-                                            placeholder='price' /></>)
-                                        : (
-                                            <>{formatPrice(item.price)} </>
-                                        )
-
-                                    }</td>
                                     <td className='tb-price'>
                                         {formatPrice((100 / item.detail) * item.price)}
                                     </td>
+
                                     <td className='tb-btn-grid tb-edit'>
-                                        {
-                                            editId === item.id
-                                                ? (<>
+                                        {editId === item.id
+                                            ? (
+                                                <>
                                                     <button className='btn-editData' onClick={() => handleSave(item.id)}>Save</button>
-                                                    <button className='btn-deleteData' onClick={() => handleCancle()}>Cancle</button>
-                                                </>)
-                                                : (<>
+                                                    <button className='btn-deleteData' onClick={() => handleCancle()}>Cancel</button>
+                                                </>
+                                            )
+                                            : (
+                                                <>
                                                     <button className='btn-editData' onClick={() => setEditId(item.id)}>Edit</button>
                                                     <button className='btn-deleteData' onClick={() => handleDelete(item.id)}>Delete</button>
-                                                </>)
+                                                </>
+                                            )
                                         }
-
-
-
                                     </td>
                                 </tr>
-
                             )}
-
-
-
                         </tbody>
                     </table>
+
+                </div>
+                <div className="card-grid">
+                    {data.map((item, index) => (
+                        <div
+                            type="button"
+                            className="card"
+                            key={index}
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            onClick={() => handleCardClick(item)}  // เมื่อคลิก เรียกฟังก์ชัน handleCardClick
+                        >
+                            <div className="card-body">
+                                <p className="card-text">{item.name}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            {/* <!-- Modal --> */}
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                {selectedItem ? selectedItem.name : ''}  {/* แสดงชื่อของ item ที่ถูกเลือก */}
+                            </h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            {
+                                selectedItem
+                                    ? (<>
+                                        ข้อมูลเพิ่มเติมของ : {selectedItem.name} <br />
+                                        เปอร์เซ็นต์ที่บันทึก : {selectedItem.detail}%<br />
+                                        ราคา {selectedItem.detail}% : {formatPrice(selectedItem.price)}<br />
+                                        ราคา 100% :  {formatPrice((100 / selectedItem.detail) * selectedItem.price)}
+                                    </>)
+
+                                    : (<>'...'</>)
+
+                            }
+
+                        </div>
+
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div >

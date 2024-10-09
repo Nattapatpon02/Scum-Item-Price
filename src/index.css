@@ -17,21 +17,23 @@ html {
 .formtable {
   width: 100%;
   max-width: 1440px;
-}
-
-.box-table {
-  width: 100%;
-  max-width: 1400px;
-  overflow-y: auto;
   border: 1px solid rgba(238, 232, 255, 0.5);
   border-radius: 5px;
   padding: 1.5vh 1vh;
   box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.1);
 
+}
+
+.box-table {
+  width: 100%;
+  max-width: 1440px;
+
+
   & table {
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
+
 
     & th {
       text-align: center;
@@ -50,6 +52,8 @@ html {
 
 @media (max-width:900px) {
   .box-table {
+    overflow-y: auto;
+
     & table {
       width: max-content;
       margin: 0 auto;
@@ -392,4 +396,76 @@ html {
   display: grid;
   gap: 1vh;
   grid-template-columns: 50% 50%;
+}
+
+.card-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.5vh;
+  margin: 2vh auto;
+
+  & .card {
+    transition: all .15s ease-in-out;
+
+    &:hover {
+      transition: all .15s ease-in-out;
+      scale: 1.03;
+      box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .card-text {
+    text-align: center;
+  }
+}
+
+.modal-content {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}
+
+
+/* Header Page */
+.nav {
+  width: 100%;
+  height: 5.5vh;
+  background-color: #40324A;
+}
+
+.banner {
+  width: 100%;
+  background-color: #0D0B26;
+  height: 50vh;
+  padding-top: 10vh;
+  padding-left: 3.5vh;
+
+  & .banner-title {
+    font-size: 5.5vh;
+    text-decoration: underline;
+    color: #ffff;
+
+  }
+
+  .banner-version {
+    color: #ffff;
+    font-size: 1.5vh;
+  }
+
+  .btn-signIn {
+    margin-top: 2vh;
+    font-size: 2vh;
+    border-radius: 2vh;
+    padding: .5vh 2.5vh;
+    outline: none;
+    border: 0;
+    color: #08E2BB;
+    transition: all .15s ease-in-out;
+
+    &:hover {
+      transition: all .15s ease-in-out;
+      scale: 1.02;
+    }
+  }
 }
